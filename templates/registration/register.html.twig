@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+{% block title %} {% endblock %}
+{% block body %}
+    <body>
+    <!--  Start Header Area -->
+    <div class="top-header-area bg-color-091c47">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <ul class="header-left-content">
+                        <li>
+                            <span>Phone:</span>
+                            <a href="tel:1-885-665-2022">1-885-665-2022</a>
+                        </li>
+                        <li>
+                            <span>Email:</span>
+                            <a href="https://templates.envytheme.com/cdn-cgi/l/email-protection#a8c1c6cec7e8cacdd0c186cbc7c5"><span class="__cf_email__" data-cfemail="d3babdb5bc93b1b6abbafdb0bcbe">[email&#160;protected]</span></a>
+                        </li>
+                        <li>
+                            <span>Mon-Sat:</span>
+                            8:00AM - 7:00PM
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-4">
+                    <ul class="header-right-content">
+                        <li>
+                            <i class="ri-user-3-line"></i>
+                            <a >Login</a>
+                        </li>
+                        <li>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>English</option>
+                                <option value="1">China</option>
+                                <option value="2">العربيّة</option>
+                                <option value="3">Germany</option>
+                                <option value="4">Portugues</option>
+                            </select>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Header Area -->
+    <!-- Start Page Banner Area -->
+    <div class="page-banner-area bg-22 pt-100">
+        <div class="container">
+            <div class="page-banner-content">
+                <h2>- Sign up -</h2>
+                <ul>
+                    <li>
+                        <a href="{{path('home')}}">
+                            <i class="ri-home-8-line"></i>
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <span>My Account</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Banner Area -->
+    <!-- Start My Account Area -->
+    <div class="my-account-area ptb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <form class="login-register-form-area register" method="post">
+                        {{ form_start(registrationForm) }}
+                        {{ form_row(registrationForm.roles) }}
+                        {{ form_row(registrationForm.nom) }}
+                        {{ form_row(registrationForm.prenom) }}
+                        {{ form_row(registrationForm.email) }}
+                        {{ form_row(registrationForm.plainPassword, { label: 'Password' }) }}
+                        {{ form_row(registrationForm.agreeTerms) }}
+
+                        <div class="d-flex align-items-center">
+                            <button type="submit" class="default-btn me-3">
+                                Register now
+                            </button>
+                            {{ form_end(registrationForm) }}
+
+                            <p>Don’t have an account? <a >Login</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End My Account Area -->
+
+    <!-- Start Footer Area -->
+    <!-- End Footer Area -->
+
+    <!-- Start Copyright Area -->
+    <div class="copy-right-area">
+        <div class="container">
+            <p>© TechNess is Proudly Owned by <a href="#" target="_blank">EnvyTheme</a></p>
+        </div>
+    </div>
+    <!-- End Copyright Area -->
+
+    <!-- Start Go Top Area -->
+    <div class="go-top">
+        <i class="ri-arrow-up-s-fill"></i>
+        <i class="ri-arrow-up-s-fill"></i>
+    </div>
+    <!-- End Go Top Area -->
+
+
+    </body>
+
+{% endblock %}
