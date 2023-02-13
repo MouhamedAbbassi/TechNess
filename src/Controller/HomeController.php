@@ -25,7 +25,8 @@ class HomeController extends AbstractController
     #[Route('/patient', name: 'patient')]
     public function patient(): Response
     {
-        return $this->render('main/patient.html.twig', [
+
+        return $this->render('front_office/base.html.twig', [
             'controller_name' => 'HomeController',
         ]);
     }

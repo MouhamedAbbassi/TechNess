@@ -1,0 +1,35 @@
+{% extends 'front_office/base.html.twig' %}
+
+{% block title %} {% endblock %}
+{% block stylesheet %}
+    {{ parent() }}
+{% endblock %}
+{% block content %}
+    <table class="table" id="ordonance-list">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>NomMedecin</th>
+            <th>NomPatient</th>
+            <th>Date</th>
+            <th>Commentaire</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for ordonnance in ordonnances %}
+            <tr>
+                <td>{{ ordonnance.id }}</td>
+                <td>{{ ordonnance.nomMedecin }}</td>
+                <td>{{ ordonnance.nomPatient }}</td>
+                <td>{{ ordonnance.date ? ordonnance.date|date('Y-m-d') : '' }}</td>
+                <td>{{ ordonnance.commentaire }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

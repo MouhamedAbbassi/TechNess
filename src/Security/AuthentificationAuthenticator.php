@@ -59,7 +59,7 @@ class AuthentificationAuthenticator extends AbstractLoginFormAuthenticator
             $medecin = in_array('medecin', $roles);
             $patient = in_array('patient', $roles);
             if ($medecin)
-                return new RedirectResponse($this->urlGenerator->generate('medecin'));
+                return new RedirectResponse($this->urlGenerator->generate('app_ordonnance_index'));
             elseif ($patient)
                 return new RedirectResponse($this->urlGenerator->generate('patient'));
             return new RedirectResponse($targetPath);

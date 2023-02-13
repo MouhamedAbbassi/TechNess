@@ -1,0 +1,56 @@
+{% extends 'back_office/base.html.twig' %}
+
+{% block title %} {% endblock %}
+{% block stylesheet %}
+    {{ parent() }}
+    <link href="{{ asset('backOffice/css/custom/dataTables.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <!--end col-->
+        <div class="col-xxl-12">
+            <div class="card" style="padding: 20px 20px;">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Date</th>
+                        <th>NomMedecin</th>
+                        <th>NomPatient</th>
+                        <th>Adresse</th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for consultation in consultations %}
+                        <tr>
+                            <td>{{ consultation.id }}</td>
+                            <td>{{ consultation.date ? consultation.date|date('Y-m-d') : '' }}</td>
+                            <td>{{ consultation.nomMedecin }}</td>
+                            <td>{{ consultation.nomPatient }}</td>
+                            <td>{{ consultation.adresse }}</td>
+                            <td>
+                                <a href="{{ path('app_consultation_show', {'id': consultation.id}) }}">show</a>
+                                <a href="{{ path('app_consultation_edit', {'id': consultation.id}) }}">edit</a>
+                                <a href="{{ path('app_ordonnance_new', {'id': consultation.id}) }}">Add Ordonnances</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    {{ parent() }}
+    <script src="{{ asset('backOffice/js/custom/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('backOffice/js/custom/dataTables.bootstrap5.min.js') }}"></script>
+    <script>
+        $('#ordonance-list').DataTable();
+    </script>
+{% endblock %}
