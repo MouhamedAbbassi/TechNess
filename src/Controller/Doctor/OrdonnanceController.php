@@ -3,9 +3,11 @@
 namespace App\Controller\Doctor;
 
 use App\Entity\Ordonnance;
+use App\Entity\OrdonnanceMedicament;
 use App\Entity\User;
 use App\Form\OrdonnanceType;
 use App\Repository\ConsultationRepository;
+use App\Repository\OrdonnanceMedicamentRepository;
 use App\Repository\OrdonnanceRepository;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,12 +31,14 @@ class OrdonnanceController extends AbstractController
     }
 
     #[Route('/{id}/new', name: 'app_ordonnance_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, OrdonnanceRepository $ordonnanceRepository, $id, ConsultationRepository $consultationRepository ): Response
+    public function new(Request $request, OrdonnanceRepository $ordonnanceRepository, $id, ConsultationRepository $consultationRepository, OrdonnanceMedicamentRepository $repository ): Response
     {
         /** @var User $user */
         $user = $this->getUser();
         $consultation = $consultationRepository->find((int)$id);
+        $ordonnanceMedicament = new OrdonnanceMedicament();
         $ordonnance = new Ordonnance();
+        $ordonnance->addOrdonnanceMedicament($ordonnanceMedicament);
         $ordonnance->setNomMedecin($user->getNom().' '.$user->getPrenom());
         $ordonnance->setNomPatient($consultation->getNomPatient());
         $form = $this->createForm(OrdonnanceType::class, $ordonnance);
@@ -44,6 +48,13 @@ class OrdonnanceController extends AbstractController
             $ordonnance->setNomMedecin($user->getNom().' '.$user->getPrenom());
             $ordonnance->setDate(new DateTime());
             $ordonnance->setDoctor($user);
+            $meds = $form->get('ordonnanceMedicaments')->getData();
+            /** @var OrdonnanceMedicament $med */
+            foreach ($meds as $med) {
+                $med->setOrdonnance($ordonnance);
+                $ordonnance->addOrdonnanceMedicament($med);
+                $repository->save($med);
+            }
             $ordonnanceRepository->save($ordonnance, true);
 
             return $this->redirectToRoute('app_ordonnance_index', [], Response::HTTP_SEE_OTHER);
@@ -64,7 +75,7 @@ class OrdonnanceController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_ordonnance_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Ordonnance $ordonnance, OrdonnanceRepository $ordonnanceRepository): Response
+    public function edit(Request $request, Ordonnance $ordonnance, OrdonnanceRepository $ordonnanceRepository, OrdonnanceMedicamentRepository $repository): Response
     {
         /** @var User $user */
         $user = $this->getUser();
@@ -73,6 +84,20 @@ class OrdonnanceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $ordonnance->setDoctor($user);
+            $oldMeds = $ordonnance->getOrdonnanceMedicaments();
+            foreach ($oldMeds as $oldMed) {
+                $ordonnance->removeOrdonnanceMedicament($oldMed);
+                $medicament = $oldMed->getMedicament();
+                $medicament->removeOrdonnanceMedicament($oldMed);
+                $repository->remove($oldMed);
+            }
+            $meds = $form->get('ordonnanceMedicaments')->getData();
+            /** @var OrdonnanceMedicament $med */
+            foreach ($meds as $med) {
+                $med->setOrdonnance($ordonnance);
+                $ordonnance->addOrdonnanceMedicament($med);
+                $repository->save($med);
+            }
             $ordonnanceRepository->save($ordonnance, true);
 
             return $this->redirectToRoute('app_ordonnance_index', [], Response::HTTP_SEE_OTHER);

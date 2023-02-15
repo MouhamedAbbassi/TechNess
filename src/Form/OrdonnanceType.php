@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Ordonnance;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -28,13 +29,18 @@ class OrdonnanceType extends AbstractType
                     'placeholder' => 'Nom patient'
                 ]
             ])
-            ->add('medicaments')
             ->add('commentaire', TextareaType::class, [
                 'label' => 'Commentaire',
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Commentaire'
                 ]
+            ])->add('ordonnanceMedicaments', CollectionType::class, [
+                // each entry in the array will be an "email" field
+                'entry_type' => OrdonnaceMedicamentType::class,
+                // these options are passed to each "email" type
+                'allow_add' => true,
+                'allow_delete' => true
             ])
 
         ;

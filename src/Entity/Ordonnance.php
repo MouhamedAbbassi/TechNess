@@ -38,12 +38,14 @@ class Ordonnance
     #[ORM\ManyToOne(inversedBy: 'ordPatients')]
     private ?User $patient = null;
 
-    #[ORM\ManyToMany(targetEntity: Medicament::class, inversedBy: 'ordonnances')]
-    private Collection $medicaments;
+    #[ORM\OneToMany(mappedBy: 'ordonnance', targetEntity: OrdonnanceMedicament::class)]
+    private Collection $ordonnanceMedicaments;
+
 
     public function __construct()
     {
         $this->medicaments = new ArrayCollection();
+        $this->ordonnanceMedicaments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -124,28 +126,35 @@ class Ordonnance
     }
 
     /**
-     * @return Collection<int, Medicament>
+     * @return Collection<int, OrdonnanceMedicament>
      */
-    public function getMedicaments(): Collection
+    public function getOrdonnanceMedicaments(): Collection
     {
-        return $this->medicaments;
+        return $this->ordonnanceMedicaments;
     }
 
-    public function addMedicament(Medicament $medicament): self
+    public function addOrdonnanceMedicament(OrdonnanceMedicament $ordonnanceMedicament): self
     {
-        if (!$this->medicaments->contains($medicament)) {
-            $this->medicaments->add($medicament);
+        if (!$this->ordonnanceMedicaments->contains($ordonnanceMedicament)) {
+            $this->ordonnanceMedicaments->add($ordonnanceMedicament);
+            $ordonnanceMedicament->setOrdonnance($this);
         }
 
         return $this;
     }
 
-    public function removeMedicament(Medicament $medicament): self
+    public function removeOrdonnanceMedicament(OrdonnanceMedicament $ordonnanceMedicament): self
     {
-        $this->medicaments->removeElement($medicament);
+        if ($this->ordonnanceMedicaments->removeElement($ordonnanceMedicament)) {
+            // set the owning side to null (unless already changed)
+            if ($ordonnanceMedicament->getOrdonnance() === $this) {
+                $ordonnanceMedicament->setOrdonnance(null);
+            }
+        }
 
         return $this;
     }
+
 
 
 }

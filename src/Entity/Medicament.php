@@ -18,17 +18,16 @@ class Medicament
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\ManyToMany(targetEntity: Ordonnance::class, mappedBy: 'medicaments')]
-    private Collection $ordonnances;
+    #[ORM\OneToMany(mappedBy: 'medicament', targetEntity: OrdonnanceMedicament::class)]
+    private Collection $ordonnanceMedicaments;
+
+
 
     public function __construct()
     {
         $this->ordonnances = new ArrayCollection();
+        $this->ordonnanceMedicaments = new ArrayCollection();
     }
-    public function __toString(): string {
-        return $this->nom;
-    }
-
 
     public function getId(): ?int
     {
@@ -60,30 +59,34 @@ class Medicament
     }
 
     /**
-     * @return Collection<int, Ordonnance>
+     * @return Collection<int, OrdonnanceMedicament>
      */
-    public function getOrdonnances(): Collection
+    public function getOrdonnanceMedicaments(): Collection
     {
-        return $this->ordonnances;
+        return $this->ordonnanceMedicaments;
     }
 
-    public function addOrdonnance(Ordonnance $ordonnance): self
+    public function addOrdonnanceMedicament(OrdonnanceMedicament $ordonnanceMedicament): self
     {
-        if (!$this->ordonnances->contains($ordonnance)) {
-            $this->ordonnances->add($ordonnance);
-            $ordonnance->addMedicament($this);
+        if (!$this->ordonnanceMedicaments->contains($ordonnanceMedicament)) {
+            $this->ordonnanceMedicaments->add($ordonnanceMedicament);
+            $ordonnanceMedicament->setMedicament($this);
         }
 
         return $this;
     }
 
-    public function removeOrdonnance(Ordonnance $ordonnance): self
+    public function removeOrdonnanceMedicament(OrdonnanceMedicament $ordonnanceMedicament): self
     {
-        if ($this->ordonnances->removeElement($ordonnance)) {
-            $ordonnance->removeMedicament($this);
+        if ($this->ordonnanceMedicaments->removeElement($ordonnanceMedicament)) {
+            // set the owning side to null (unless already changed)
+            if ($ordonnanceMedicament->getMedicament() === $this) {
+                $ordonnanceMedicament->setMedicament(null);
+            }
         }
 
         return $this;
     }
+
 
 }

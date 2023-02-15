@@ -13,7 +13,7 @@
             <th>NomPatient</th>
             <th>Date</th>
             <th>Commentaire</th>
-            <th>Medicament</th>
+            <th>Nombre des Medicament</th>
 
         </tr>
         </thead>
@@ -25,9 +25,7 @@
                 <td>{{ ordonnance.nomPatient }}</td>
                 <td>{{ ordonnance.date ? ordonnance.date|date('Y-m-d') : '' }}</td>
                 <td>{{ ordonnance.commentaire }}</td>
-                <{% for m in ordonnance.medicaments %}
-                <td>{{ m }}</td>
-                {% endfor %}
+                <td>{{ ordonnance.ordonnanceMedicaments|length }}</td>
             </tr>
         {% else %}
             <tr>
