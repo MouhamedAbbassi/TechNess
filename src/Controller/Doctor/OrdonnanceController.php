@@ -27,15 +27,6 @@ class OrdonnanceController extends AbstractController
             ]),
         ]);
     }
-    #[Route('/get', name: 'app_ordonnance_indexx', methods: ['GET', 'POST'])]
-    public function showOrdonnance(OrdonnanceRepository $ordonnanceRepository): Response
-    {
-        /** @var User $user */
-        $user = $this->getUser();
-        return $this->render('front_office/ordonnance/showOrdonnance.html.twig', [
-            'ordonnances' => $ordonnanceRepository->findAll()
-        ]);
-    }
 
     #[Route('/{id}/new', name: 'app_ordonnance_new', methods: ['GET', 'POST'])]
     public function new(Request $request, OrdonnanceRepository $ordonnanceRepository, $id, ConsultationRepository $consultationRepository ): Response

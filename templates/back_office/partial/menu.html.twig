@@ -1,10 +1,13 @@
 <ul class="navbar-nav" id="navbar-nav">
 
-    <li class="menu-title"><span data-key="t-menu">Ordonnace</span></li>
+    <li class="menu-title"><span data-key="t-menu">Medecin</span></li>
+    <li class="nav-item">
+        <a href="{{ path('app_consultation_index') }}" class="nav-link menu-link"> <i class="bi bi-speedometer2"></i> <span data-key="t-dashboard">List des consultation</span></a>
+    </li>
     <li class="nav-item">
         <a href="{{ path('app_ordonnance_index') }}" class="nav-link menu-link"> <i class="bi bi-speedometer2"></i> <span data-key="t-dashboard">List des ordonances</span> </a>
     </li>
     <li class="nav-item">
-        <a href="{{ path('app_consultation_index') }}" class="nav-link menu-link"> <i class="bi bi-speedometer2"></i> <span data-key="t-dashboard">List des consultation</span> </a>
+        <a href="{{ path('app_fiche_index') }}" class="nav-link menu-link"> <i class="bi bi-speedometer2"></i> <span data-key="t-dashboard">List des fiche</span></a>
     </li>
 </ul>

@@ -32,7 +32,8 @@
                             <td>
                                 <a href="{{ path('app_consultation_show', {'id': consultation.id}) }}">show</a>
                                 <a href="{{ path('app_consultation_edit', {'id': consultation.id}) }}">edit</a>
-                                <a href="{{ path('app_ordonnance_new', {'id': consultation.id}) }}">Add Ordonnances</a>
+                                <a href="{{ path('app_ordonnance_new', {'id': consultation.id}) }}">Ordonnances</a>
+                                <a href="{{ path('app_fiche_new', {'id': consultation.id}) }}">fiche</a>
                             </td>
                         </tr>
                     {% else %}

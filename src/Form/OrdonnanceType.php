@@ -28,6 +28,7 @@ class OrdonnanceType extends AbstractType
                     'placeholder' => 'Nom patient'
                 ]
             ])
+            ->add('medicaments')
             ->add('commentaire', TextareaType::class, [
                 'label' => 'Commentaire',
                 'attr' => [
@@ -35,6 +36,7 @@ class OrdonnanceType extends AbstractType
                     'placeholder' => 'Commentaire'
                 ]
             ])
+
         ;
     }
 

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OrdonnanceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -32,6 +34,17 @@ class Ordonnance
 
     #[ORM\ManyToOne(inversedBy: 'ordonnances')]
     private ?User $doctor = null;
+
+    #[ORM\ManyToOne(inversedBy: 'ordPatients')]
+    private ?User $patient = null;
+
+    #[ORM\ManyToMany(targetEntity: Medicament::class, inversedBy: 'ordonnances')]
+    private Collection $medicaments;
+
+    public function __construct()
+    {
+        $this->medicaments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -97,4 +110,42 @@ class Ordonnance
 
         return $this;
     }
+
+    public function getPatient(): ?User
+    {
+        return $this->patient;
+    }
+
+    public function setPatient(?User $patient): self
+    {
+        $this->patient = $patient;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Medicament>
+     */
+    public function getMedicaments(): Collection
+    {
+        return $this->medicaments;
+    }
+
+    public function addMedicament(Medicament $medicament): self
+    {
+        if (!$this->medicaments->contains($medicament)) {
+            $this->medicaments->add($medicament);
+        }
+
+        return $this;
+    }
+
+    public function removeMedicament(Medicament $medicament): self
+    {
+        $this->medicaments->removeElement($medicament);
+
+        return $this;
+    }
+
+
 }
