@@ -58,7 +58,7 @@ class AuthentificationAuthenticator extends AbstractLoginFormAuthenticator
                 return new RedirectResponse($this->urlGenerator->generate('medecin'));
             elseif (in_array('ROLE_PATIENT', $roles))
                 return new RedirectResponse($this->urlGenerator->generate('patient'));
-            
+
         return new RedirectResponse($this->urlGenerator->generate('home'));
         // For example
         //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);

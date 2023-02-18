@@ -225,6 +225,29 @@
             "./config/packages/security.yaml"
         ]
     },
+    "symfony/sendgrid-mailer": {
+        "version": "5.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "4.4",
+            "ref": "b46e4f8f1adb2864f0aa9c0ff57aea3324a07199"
+        }
+    },
+    "symfony/swiftmailer-bundle": {
+        "version": "3.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "2.5",
+            "ref": "f0b2fccdca2dfd97dc2fd5ad216d5e27c4f895ac"
+        },
+        "files": [
+            "./config/packages/dev/swiftmailer.yaml",
+            "./config/packages/swiftmailer.yaml",
+            "./config/packages/test/swiftmailer.yaml"
+        ]
+    },
     "symfony/translation": {
         "version": "5.4",
         "recipe": {
@@ -288,7 +311,31 @@
             "./config/packages/messenger.yaml"
         ]
     },
+    "symfonycasts/reset-password-bundle": {
+        "version": "1.17",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.0",
+            "ref": "97c1627c0384534997ae1047b93be517ca16de43"
+        },
+        "files": [
+            "./config/packages/reset_password.yaml"
+        ]
+    },
+    "symfonycasts/verify-email-bundle": {
+        "version": "v1.13.0"
+    },
     "twig/extra-bundle": {
         "version": "v3.5.0"
+    },
+    "vich/uploader-bundle": {
+        "version": "1.21",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.13",
+            "ref": "1b3064c2f6b255c2bc2f56461aaeb76b11e07e36"
+        }
     }
 }

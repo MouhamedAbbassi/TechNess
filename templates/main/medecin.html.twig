@@ -4,13 +4,9 @@
 
 {% block body %}
 
+
     <body>
-
-
-
-
-
-		<!-- Start Doctor Details Area -->
+<!-- Start Doctor Details Area -->
 		<div class="doctor-details-area ptb-100">
 			<div class="container">
 				<div class="doctor-details-content">
@@ -18,30 +14,27 @@
 						<div class="row align-items-center">
 							<div class="col-lg-6">
 								<div class="doctor-img">
-									<img src="../../../doc123/templates.envytheme.com/bexi/default/assets/images/team/team-13.jpg" alt="Image">
+									<img src="{{ asset('/uploads/'~app.user.image) }}" alt="Image">
 								</div>
-							</div>
+								<li>
+									<a class="default-btn active" href="{{path('modifierProfile',{'id':app.user.id})}}">Profile Setting</a>
+								</li>
 
+							</div>
 							<div class="col-lg-6">
 								<div class="doctor-content">
-									<h3>Glenn Arredondo</h3>
-									<span class="family">Family Physicians</span>
+									<h3>{{ app.user.nom  }}-{{ app.user.prenom }}</h3>
 									<ul>
 										<li>
+											<span>Email:</span>
+											{{ app.user.Email }}
+										</li>	<li>
 											<span>Address:</span>
-											5599 Harvey Laneb Grand Forks, ND 8855
+											{{ app.user.adresse }}
 										</li>
 										<li>
 											<span>Phone:</span>
-											<a href="tel:-(616)-999-95544">(616) 999-95544</a>
-										</li>
-										<li>
-											<span>Fax:</span>
-											<a href="tel:(616)-333-6543">(616) 999-6543</a>
-										</li>
-										<li>
-											<span>Language:</span>
-											English, German, Italian
+											{{ app.user.numero }}
 										</li>
 										<li>
 											Patient Experience Rating
@@ -59,24 +52,6 @@
 							</div>
 						</div>
 					</div>
-
-					<ul class="socila-link">
-						<li>
-							<a href="https://www.facebook.com/" target="_blank">
-								<img src="../../../doc123/templates.envytheme.com/bexi/default/assets/images/svg-icon/facebook.svg" alt="Image">
-							</a>
-						</li>
-						<li>
-							<a href="https://www.twitter.com/" target="_blank">
-								<img src="../../../doc123/templates.envytheme.com/bexi/default/assets/images/svg-icon/twitter.svg" alt="Image">
-							</a>
-						</li>
-						<li>
-							<a href="https://www.linkedin.com/" target="_blank">
-								<img src="../../../doc123/templates.envytheme.com/bexi/default/assets/images/svg-icon/linkedin.svg" alt="Image">
-							</a>
-						</li>
-					</ul>
 				</div>
 
 				<div class="pt-100">
@@ -84,9 +59,7 @@
 						<div class="col-lg-8">
 							<div class="doctor-informetion mr-15">
 								<h2>Biography</h2>
-								<p>Donec rutrum congue leo eget malesuada. Donec rutrum congue leo eget malesuada. Nulla porttitor accumsan tincidunt. Sed porttitor lectus nibh. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Cras ultricies ligula sed magna dictum porta. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem.
-								</p>
-								<p>Pellentesque in ipsum id orci porta dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Donec sollicitudin molestie malesuada. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Pellentesque in ipsum id orci porta dapibus. Curabitur non nulla sit amet nisl tempus convallis quis.</p>
+								<p>{{ app.user.bioDescription }}</p>
 
 								<div class="gap-mb-50"></div>
 
@@ -261,166 +234,7 @@
 		</div>
 		<!-- End Dark Mode Area -->
 
-		<!-- Start Footer Area -->
-		<div class="footer-area bg-color-f1f5f8 pt-100 pb-70">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-3 col-sm-6">
-						<div class="single-footer-widget">
-							<a href="index.html" class="logo">
-								<img src="../../../doc123/templates.envytheme.com/bexi/default/assets/images/logo.png" class="main-logo" alt="logo">
-								<img src="../../../doc123/templates.envytheme.com/bexi/default/assets/images/white-logo.png" class="white-logo" alt="logo">
-							</a>
-							<p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Donec sollicitudin molestie.</p>
-							<h4>177 Devon Lane Miami, MK 3355</h4>
-							<ul class="info">
-								<li>
-									<span>EMAIL US:</span>
-									<a href="https://templates.envytheme.com/cdn-cgi/l/email-protection#b7ded9d1d8f7d5d2cfde99d4d8da"><span class="__cf_email__" data-cfemail="5a33343c351a383f223374393537">[email&#160;protected]</span></a>
-								</li>
-								<li>
-									<span>CALL US:</span>
-									<a href="tel:1-885-665-2022">1-885-665-2022</a>
-								</li>
-							</ul>
-						</div>
-					</div>
 
-					<div class="col-lg-3 col-sm-6">
-						<div class="single-footer-widget">
-							<h3>Departments</h3>
-
-							<ul class="import-link">
-								<li>
-									<a href="department.html">
-										<i class="ri-arrow-right-s-line"></i>
-										Emergency Departments
-									</a>
-								</li>
-								<li>
-									<a href="department-orthopedics.html">
-										<i class="ri-arrow-right-s-line"></i>
-										Orthopedics
-									</a>
-								</li>
-								<li>
-									<a href="department.html">
-										<i class="ri-arrow-right-s-line"></i>
-										Neurosciences
-									</a>
-								</li>
-								<li>
-									<a href="department.html">
-										<i class="ri-arrow-right-s-line"></i>
-										Gastroenterology
-									</a>
-								</li>
-								<li>
-									<a href="department.html">
-										<i class="ri-arrow-right-s-line"></i>
-										Bariatric Surgery
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-
-					<div class="col-lg-3 col-sm-6">
-						<div class="single-footer-widget">
-							<h3>Helpful Links</h3>
-
-							<ul class="import-link">
-								<li>
-									<a href="find-a-doctor.html">
-										<i class="ri-arrow-right-s-line"></i>
-										Find a Doctor
-									</a>
-								</li>
-								<li>
-									<a href="hospital.html">
-										<i class="ri-arrow-right-s-line"></i>
-										Find a Hospital
-									</a>
-								</li>
-								<li>
-									<a href="products.html">
-										<i class="ri-arrow-right-s-line"></i>
-										Buy Medicine
-									</a>
-								</li>
-								<li>
-									<a href="terms-conditions.html">
-										<i class="ri-arrow-right-s-line"></i>
-										Terms of Use
-									</a>
-								</li>
-								<li>
-									<a href="privacy-policy.html">
-										<i class="ri-arrow-right-s-line"></i>
-										Privacy Policy
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-
-					<div class="col-lg-3 col-sm-6">
-						<div class="single-footer-widget">
-							<h3>Subscribe Our Newsletter</h3>
-
-							<form class="newsletter-form" data-toggle="validator">
-								<input type="email" class="form-control" placeholder="Email address" name="EMAIL" required autocomplete="off">
-		
-								<button class="default-btn" type="submit">
-									Submit now
-								</button>
-		
-								<div id="validator-newsletter" class="form-result"></div>
-							</form>
-
-							<ul class="socila-link">
-								<li>
-									<a href="https://www.facebook.com/" target="_blank">
-										<img src="../../../doc123/templates.envytheme.com/bexi/default/assets/images/svg-icon/facebook.svg" alt="Image">
-									</a>
-								</li>
-								<li>
-									<a href="https://www.facebook.com/" target="_blank">
-										<img src="../../../doc123/templates.envytheme.com/bexi/default/assets/images/svg-icon/twitter.svg" alt="Image">
-									</a>
-								</li>
-								<li>
-									<a href="https://www.facebook.com/" target="_blank">
-										<img src="../../../doc123/templates.envytheme.com/bexi/default/assets/images/svg-icon/linkedin.svg" alt="Image">
-									</a>
-								</li>
-								<li>
-									<a href="https://www.instagram.com/" target="_blank">
-										<img src="../../../doc123/templates.envytheme.com/bexi/default/assets/images/svg-icon/instagram.svg" alt="Image">
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- End Footer Area -->
-
-		<!-- Start Copyright Area -->
-		<div class="copy-right-area">
-			<div class="container">
-				<p>© Bexi is Proudly Owned by <a href="https://envytheme.com/" target="_blank">EnvyTheme</a></p>
-			</div>
-		</div>
-		<!-- End Copyright Area -->
-
-		<!-- Start Go Top Area -->
-		<div class="go-top">
-			<i class="ri-arrow-up-s-fill"></i>
-			<i class="ri-arrow-up-s-fill"></i>
-		</div>
-		<!-- End Go Top Area -->
 
 
     </body>

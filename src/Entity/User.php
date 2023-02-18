@@ -3,14 +3,22 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-
+use Symfony\Component\Validator\Constraints\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+
+/**
+ * @ORM\Entity
+ * @Vich\Uploadable
+ */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -35,6 +43,40 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $prenom = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $reset_token = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $licenceNumero = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $bioDescription = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $numero = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
+
+
+    /**
+     * @Vich\UploadableField(mapping="product_images", fileNameProperty="image")
+     * @var File
+     */
+    private $imageFile;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $adresse = null;
+
+    #[ORM\ManyToOne(inversedBy: 'medecin')]
+    private ?Speciality $speciality = null;
+
+    public function __construct()
+    {
+        $this->speciality = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -145,4 +187,108 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getResetToken(): ?string
+    {
+        return $this->reset_token;
+    }
+
+    public function setResetToken(string $resetToken): self
+    {
+        $this->reset_token = $resetToken;
+
+        return $this;
+    }
+
+
+    public function getLicenceNumero(): ?string
+    {
+        return $this->licenceNumero;
+    }
+
+    public function setLicenceNumero(?string $licenceNumero): self
+    {
+        $this->licenceNumero = $licenceNumero;
+
+        return $this;
+    }
+
+    public function getBioDescription(): ?string
+    {
+        return $this->bioDescription;
+    }
+
+    public function setBioDescription(?string $bioDescription): self
+    {
+        $this->bioDescription = $bioDescription;
+
+        return $this;
+    }
+
+    public function getNumero(): ?string
+    {
+        return $this->numero;
+    }
+
+    public function setNumero(?string $numero): self
+    {
+        $this->numero = $numero;
+
+        return $this;
+    }
+    public function setImageFile( $image = null)
+    {
+        $this->imageFile = $image;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($image) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(?string $adresse): self
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getSpeciality(): ?Speciality
+    {
+        return $this->speciality;
+    }
+
+    public function setSpeciality(?Speciality $speciality): self
+    {
+        $this->speciality = $speciality;
+
+        return $this;
+    }
+
+
+
+
 }
